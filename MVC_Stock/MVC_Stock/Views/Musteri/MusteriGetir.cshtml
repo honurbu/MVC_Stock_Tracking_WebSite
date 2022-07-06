@@ -1,0 +1,32 @@
+﻿@model MVC_Stock.Models.Entity.TBLMUSTERILER
+@{
+    ViewBag.Title = "MusteriGetir";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+
+<h2>Seçilen Müşteri Bilgileri Güncellemesine Buradan Ulaşabilirsiniz</h2>
+
+@using (Html.BeginForm("Güncelle", "Musteri", FormMethod.Post))
+{
+    <div class="form-group">
+        @Html.LabelFor(m => m.MUSTERID)
+        @Html.TextBoxFor(m => m.MUSTERID, new { @class = "form-control" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.MUSTERIAD)
+        @Html.TextBoxFor(m => m.MUSTERIAD, new { @class = "form-control" })
+    </div>
+
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.MUSTERISOYAD)
+        @Html.TextBoxFor(m => m.MUSTERISOYAD, new { @class = "form-control" })
+    </div>
+
+    <div>
+        <button class="btn btn-warning"> Müşteri Güncelle </button>
+    </div>
+
+}
+

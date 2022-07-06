@@ -1,0 +1,53 @@
+﻿@using MVC_Stock.Models.Entity
+@using PagedList
+@using PagedList.Mvc
+
+@model PagedList.IPagedList<TBLKATEGORI>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+
+<h1>KATEGORİLER</h1>
+
+@using (Html.BeginForm("Index", "Kategori", FormMethod.Get))
+{
+    <p>
+       <b> Aranacak Kategori : </b> @Html.TextBox("sf");
+        <input type="submit" value="Ara" />
+    </p>
+}
+
+
+<table class="table table-bordered">
+
+    <tr>
+        <th>KATEGORİ ID</th>
+        <th>KATEGORİ AD</th>
+        <th>SİL</th>
+        <th>GÜNCELLE</th>
+    </tr>
+    <tbody>
+        @foreach (var ktgr in Model)
+        {
+            <tr>
+                <th>@ktgr.KATEGORIID</th>
+                <td>@ktgr.KATEGORIAD</td>
+
+
+                <td> <a href="/Kategori/SIL/@ktgr.KATEGORIID" class="btn btn-danger" onclick="return confirm('Silmek İstediğinize Emin Misiniz ?')"> SİL </a> </td>
+                <td> <a href="/Kategori/KategoriGetir/@ktgr.KATEGORIID" class="btn btn-success"> GÜNCELLE </a> </td>
+
+            </tr>
+
+        }
+
+
+    </tbody>
+
+</table>
+@Html.PagedListPager((IPagedList)Model, sayfa => Url.Action("Index", new { sayfa }))
+
+
+<a href="/Kategori/YeniKategori/" class="btn btn-primary"> YENİ KATEGORİ EKLE</a>

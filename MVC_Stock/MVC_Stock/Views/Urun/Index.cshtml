@@ -1,0 +1,76 @@
+﻿@using MVC_Stock.Models.Entity
+@using PagedList
+@using PagedList.Mvc
+@model PagedList.IPagedList<TBLURUNLER>
+
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+
+<h2>ÜRÜNLER</h2>
+
+@using (Html.BeginForm("Index", "Urun", FormMethod.Get))
+{
+    <p>
+        <b>Aranacak Ürün : </b> @Html.TextBox("p");
+        <input type="submit" value="Ara" />
+    </p>
+}
+
+<table class="table table-bordered">
+
+    <tr>
+        <th>ÜRÜN ID</th>
+        <th>ÜRÜN ADI</th>
+        <th>ÜRÜN MARKA</th>
+        <th>ÜRÜN KATEGORİ</th>
+        <th>ÜRÜN FİYAT</th>
+        <th>ÜRÜN STOK</th>
+        <th>SİL</th>
+        <th>GÜNCELLE</th>
+
+    </tr>
+    <tbody>
+
+        @foreach (var urun in Model)
+        {
+            <tr>
+                <th> @urun.URUNID</th>
+
+                <td> @urun.URUNAD</td>
+
+                <td> @urun.MARKA</td>
+
+                @if (urun.URUNKATEGORI == null)
+                {
+                    <td> Ürün Kategorisi Belirtilmemiş</td>
+                }
+                else
+                {
+                    <td> @urun.TBLKATEGORI.KATEGORIAD</td>
+                }
+
+                <td>@urun.FIYAT</td>
+
+                <td>@urun.STOK</td>
+
+                <td> <a href="/Urun/SIL/@urun.URUNID" class="btn btn-danger" onclick="return confirm('Silmek İstediğinize Emin Misiniz ?')"> SİL </a> </td>
+                <td> <a href="/Urun/UrunGetir/@urun.URUNID" class="btn btn-success"> GÜNCELLE  </a> </td>
+
+            </tr>
+        }
+    </tbody>
+
+</table>
+
+@Html.PagedListPager((IPagedList)Model, page => Url.Action("Index", new { page }))
+
+
+
+<a href="/Urun/YeniUrun/" class="btn btn-primary"> YENİ ÜRÜN EKLE</a>
+
+
+
+

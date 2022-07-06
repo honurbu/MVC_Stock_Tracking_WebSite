@@ -1,0 +1,55 @@
+﻿
+@using MVC_Stock.Models.Entity
+@model PagedList.IPagedList<TBLMUSTERILER>
+@using PagedList
+@using PagedList.Mvc
+
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+
+<h2>MÜŞTERİLER</h2>
+
+@using (Html.BeginForm("Index","Musteri",FormMethod.Get))
+            {
+                <p>
+                    <b> Aranacak Müşteri : </b> @Html.TextBox("p");
+                    <input type="submit" value="Ara"/>
+                </p>
+            }
+
+<table class="table table-bordered">
+
+    <tr>
+
+        <th>MÜŞTERİ ID</th>
+        <th>MÜŞTERİ AD</th>
+        <th>MÜŞTERİ SOYAD</th>
+        <th>SİL</th>
+        <th>GÜNCELLE</th>
+
+    </tr>
+
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <th>@item.MUSTERID</th>
+                <td>@item.MUSTERIAD</td>
+                <td>@item.MUSTERISOYAD</td>
+
+                <td> <a href="/Musteri/SIL/@item.MUSTERID" class="btn btn-danger" onclick="return confirm('Silmek istediğinize emin misiniz?')">Sil</a></td>
+                <td> <a href="/Musteri/MusteriGetir/@item.MUSTERID" class="btn btn-success"> GÜNCELLE </a> </td>
+            </tr>
+            }
+    </tbody>
+
+</table>
+
+@Html.PagedListPager((IPagedList)Model, sf=> Url.Action("Index",new {sf}))
+
+<a href="/Musteri/YeniMusteri/" class="btn btn-primary"> YENİ MÜŞTERİ EKLE</a>
+
+

@@ -1,0 +1,58 @@
+﻿@model MVC_Stock.Models.Entity.TBLURUNLER
+
+
+@{
+    ViewBag.Title = "YeniUrun";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+
+<h2>Yeni Ürün Ekleme Sayfası</h2>
+<h7>TÜM ALANLARIN DOLDURULMASI GEREKMEKTEDİR</h7>
+<br />
+
+
+@using (Html.BeginForm("YeniUrun", "Urun", FormMethod.Post))
+{
+    <br />
+    <div class="form-group">
+        <label> Eklenecek Ürünün Adını Giriniz </label>
+        <input type="text" class="form-control" name="URUNAD" required="" maxlength="50" />
+    </div>
+
+    <div style="margin-top:50px">
+        <label> Eklenecek Ürünün Markasını Giriniz </label>
+        <input type="text" class="form-control" name="MARKA" required="" maxlength="50" />
+    </div>
+
+    <div style="margin-top:50px">
+        <label> Eklenecek Olan Ürünün Kategorisini Seçiniz</label>
+        @Html.DropDownListFor(m => m.TBLKATEGORI.KATEGORIID, (List<SelectListItem>)ViewBag.Degerler, new { @class = "form-control" })
+    </div>
+
+    <div style="margin-top:50px">
+        <label>Eklenecek Ürünün Fiyatını Giriniz</label>
+        <input type="text" class="form-control" name="FIYAT" required="" />
+    </div>
+
+    <div style="margin-top:50px">
+        <label>Eklenecek Ürünün Stok Adetini Girin</label>
+        <input type="text" class="form-control" name="STOK" required="" />
+    </div>
+
+    <div style="margin-top:20px">
+        <button class="btn btn-info id=btn3">Ürün Ekle</button>
+    </div>
+
+
+    <script>
+    $('#btn3').click(function () {
+        alert("Ürün Ekleme İşlemi Başarılı");
+    });
+    </script>
+
+
+}
+
+
+
+
